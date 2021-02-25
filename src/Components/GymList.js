@@ -5,8 +5,10 @@ import GymItem from "./GymItem";
 import SearchBar from "./SearchBar";
 
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const GymList = (props) => {
+  const users = useSelector((state) => state.authReducer.user);
   const [query, setQuery] = useState("");
 
   const gymList = props.gyms
@@ -18,9 +20,13 @@ const GymList = (props) => {
     <div className="container">
       <SearchBar setQuery={setQuery} />
       <div className="row">{gymList}</div>
-      <Link to="/gym/new">
-        <BsPlusCircle className="float-right" size="2em" />
-      </Link>
+      {users !== null && users.id === 1 ? (
+        <Link to="/gym/new">
+          <BsPlusCircle className="float-right" size="2em" />
+        </Link>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

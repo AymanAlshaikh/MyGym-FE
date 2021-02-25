@@ -7,7 +7,7 @@ export const addGym = (newGym) => async (dispatch) => {
   try {
     const formData = new FormData();
     for (const key in newGym) formData.append(key, newGym[key]);
-    const res = await instance.post("/gym", formData);
+    const res = await instance.post("/gym", newGym); //formData);
     dispatch({
       type: types.ADD_GYM,
       payload: { newGym: res.data },

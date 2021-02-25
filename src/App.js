@@ -11,6 +11,8 @@ import TypeDetail from "./Components/TypeDetail";
 import SignIn from "./Components/SignIn";
 import ClassDetail from "./Components/ClassDetail";
 import GymForm from "./Components/GymForm";
+import TypeForm from "./Components/TypeForm";
+import GymDetail from "./Components/GymDetail";
 
 function App() {
   const gyms = useSelector((state) => state.gymReducer.gym);
@@ -22,14 +24,20 @@ function App() {
       <header className="App-header">
         <ButtonAppBar />
         <Switch>
+          <Route path="/gym/:gymSlug/type/new">
+            <TypeForm />
+          </Route>
           <Route path="/gym/new">
             <GymForm />
+          </Route>
+          <Route path="/gym/:gymSlug">
+            <GymDetail />
           </Route>
           <Route path="/class/:classSlug">
             <ClassDetail />
           </Route>
-          <Route path="/type/:typeId">
-            <TypeDetail types={types} />
+          <Route path="/type/:typeSlug">
+            <TypeDetail />
           </Route>
           <Route path="/type">
             <TypeList types={types} />

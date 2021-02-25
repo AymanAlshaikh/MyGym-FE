@@ -4,28 +4,27 @@ import { useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import ClassList from "./ClassList";
 
-const TypeDetail = ({ types }) => {
-  const allClasss = useSelector((state) => state.classReducer.clas);
-  const { typeId } = useParams();
+const TypeDetail = () => {
+  const types = useSelector((state) => state.typeReducer.type);
+  const allClasses = useSelector((state) => state.classReducer.clas);
+  const { typeSlug } = useParams();
 
-  //   const types = useSelector(
-  //     (state) => state.typeReducer.type //.find((type) => type.id === typeId)
-  //   );
-  const type = types.find((type) => type.id === typeId);
+  // const types = useSelector((state) => state.typeReducer.type);
   console.log(types);
+  const typez = types.find((type) => type.slug === typeSlug);
+  console.log(typez);
 
   //if (!types) return <Redirect to="/type" />;
 
-  const classes = type.clas.map((clas) =>
-    allClasss.find((_clas) => _clas.id === clas.id)
+  const classes = typez.clas.map((clas) =>
+    allClasses.find((_clas) => _clas.id === clas.id)
   );
 
   return (
     <>
-      <h4>{type.name}</h4>
+      <h4>{typez.name}</h4>
       <ClassList classes={classes} />
-      {/* <UpdateButton classes={type.classes} /> */}
-      <Link to={`/type/${type.id}/classes/new`}>
+      <Link to={`/type/${typez.id}/classes/new`}>
         <BsPlusCircle className="float-right" size="2em" />
       </Link>
     </>

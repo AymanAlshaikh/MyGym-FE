@@ -1,6 +1,9 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import { signout } from "../store/actions/authActions";
 const NavBar = () => {
+  const user = useSelector((state) => state.authReducer.user);
+  const dispatch = useDispatch();
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
       <div class="container-fluid">
@@ -30,12 +33,32 @@ const NavBar = () => {
             <Link to="class" class="nav-link">
               <li class="nav-item">Class</li>
             </Link>
-            <Link to="/signup" class="nav-link">
-              <li class="nav-item">SignUp</li>
-            </Link>
-            <Link to="/signin" class="nav-link">
-              <li class="nav-item">SignIn</li>
-            </Link>{" "}
+            {!user ? (
+              <>
+                <Link to="/signup" class="nav-link">
+                  <li class="nav-item">SignUp</li>
+                </Link>
+                <Link to="/signin" class="nav-link">
+                  <li class="nav-item">SignIn</li>
+                </Link>
+              </>
+            ) : (
+              ""
+            )}
+            {user ? (
+              <>
+                {user.id === 1
+                  ? `Welcome Admin: ${user.username}`
+                  : `Welcome: ${user.username}`}
+                <Link to="/" class="nav-link">
+                  <li onClick={() => dispatch(signout())} class="nav-item">
+                    SignOut
+                  </li>
+                </Link>
+              </>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
       </div>

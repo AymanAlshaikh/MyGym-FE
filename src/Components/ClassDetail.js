@@ -7,13 +7,10 @@ import { useSelector } from "react-redux";
 const ClassDetail = () => {
   const { classSlug } = useParams();
 
-  //   const claz = useSelector((state) =>
-  //     state.classReducer.clas.find((cls) => cls.slug === clasSlug)
-  //   );
   const saf = useSelector((state) =>
     state.classReducer.clas.find((saf) => saf.slug === classSlug)
   );
-  //if (!clas) return <Redirect to="/class" />;
+  if (!saf) return <Redirect to="/class" />;
 
   return (
     <div>
